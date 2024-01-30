@@ -1,0 +1,22 @@
+.bg_facts {
+   background-image: url('/src/assets/facets.png');
+   background-position: center 0px;
+   background-size: 1000px;
+   background-repeat: repeat-x;
+   display: block;
+}
+
+.container {
+   width: 100%;
+   margin-left: auto;
+   padding-left: 1rem;
+   padding-top: 2rem;
+
+}
+
+@media screen and (min-width: 768px) {
+   .container {
+      padding-left: 2rem;
+   }
+
+}

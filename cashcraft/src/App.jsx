@@ -1,16 +1,19 @@
 
 import { Fragment } from 'react'
-import styles from "./App.module.scss"
+// import styles from "./App.module.scss"
 import Navbar from './components/Navbar'
-
+import { Routes, Route } from 'react-router-dom'
+import Home from './components/Home'
+import Login from './components/Login'
 function App() {
 
   return (
     <Fragment>
-      <Navbar/>
-      <h1 className={styles.heading}>
-        NavBar Components
-      </h1>
+      <Navbar />
+      <Routes>
+        <Route exact path="/" Component={Home} />
+        <Route exact path="/login" Component={Login} />
+      </Routes>
     </Fragment>
 
   )
