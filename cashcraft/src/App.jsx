@@ -1,6 +1,5 @@
 
 import { Fragment } from 'react'
-import "./components/App.scss"
 import styles from "./App.module.scss"
 import Navbar from './components/Navbar'
 
