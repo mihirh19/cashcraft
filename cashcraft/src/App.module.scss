@@ -1,5 +1,41 @@
-.heading{
+.heading {
    font-size: xx-large;
    font-weight: bold;
-   text-decoration: none;  
+   text-decoration: none;
+}
+
+* {
+   padding: 0px;
+   margin: 0px;
+   font-family: 'Jetbrains Mono';
+}
+
+.navbar {
+   background-color: #3498db;
+   color: #fff;
+   padding: 1rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.navbar_logo {
+   font-size: 1.5rem;
+   font-weight: bold;
+}
+
+.navbar_links {
+   list-style: none;
+   display: flex;
+   gap: 1rem;
+}
+
+.navbar_link {
+   cursor: pointer;
+   padding: 0.5rem;
+   border-radius: 4px;
+
+   &:hover {
+      background-color: #2980b9;
+   }
 }
