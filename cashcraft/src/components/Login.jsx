@@ -1,16 +1,28 @@
 import { Fragment } from "react"
 import styles from "./styles/Login.module.scss"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+   const navigate = useNavigate();
    const [username, setUsername] = useState('');
    const [password, setPassword] = useState('');
 
-   const handleLogin = (e) => {
+   const handleLogin = async (e) => {
       e.preventDefault();
       // Add your login logic here
-      alert('Logging in with:   ' + username);
-   };
+      const data = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`)
+      const user = await data.json()
 
+      if (user.length > 0) {
+         navigate('/')
+      }
+      else {
+         alert('Invalid username or password')
+         setUsername('')
+         setPassword('')
+
+      }
+   }
    return (
       <Fragment>
          <div className={styles.login_all}>
@@ -46,4 +58,4 @@ const Login = () => {
    )
 }
 
-export default Login
+export default Login;
