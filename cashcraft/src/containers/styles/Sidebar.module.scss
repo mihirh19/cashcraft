@@ -1,0 +1,40 @@
+.sidebar_main {
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   justify-content: flex-start;
+   gap: 4vh;
+   padding-top: 5vh;
+   align-items: flex-start;
+   max-width: 18%;
+   width: auto;
+   padding: 2vw;
+}
+
+.sidebar_items {
+   display: flex;
+   flex-direction: column;
+   gap: 1vh;
+}
+
+.sidebar_item {
+   display: flex;
+   flex-direction: row;
+   gap: 4vh;
+   flex-wrap: wrap;
+}
+
+.sidebar_grp {
+   color: grey;
+   font-size: 1.1vw;
+   align-self: flex-start;
+   margin-left: 7px;
+}
+
+.groupss {
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   gap: 10px;
+   justify-content: center;
+}

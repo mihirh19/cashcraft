@@ -5,5 +5,17 @@
          "username" : "mihir",
          "password" : "mihir"
       }
+   ],
+   "groups":[
+      {
+         "id":1,
+         "name" : "shimla"
+      },
+      {
+         "id":2,
+         "name" : "manali" 
+      }
+      
+      
    ]
 }
