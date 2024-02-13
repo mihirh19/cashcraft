@@ -3,6 +3,16 @@ import styles from "./styles/Sidebar.module.scss"
 import { useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import axios from "axios";
+import TopContainer from "../components/dashboard/TopContainer";
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { Mode } from "@mui/icons-material";
+
 const MainDashboard = () => {
 
    const [users, setUsers] = useState();
@@ -88,7 +98,7 @@ const MainDashboard = () => {
       totalgroups = totalgroups.data;
       localStorage.setItem('groups', JSON.stringify(totalgroups));
 
-      window.location.reload();
+      // window.location.reload();
    }
 
 
@@ -103,8 +113,52 @@ const MainDashboard = () => {
                <p className={styles.top_text}>Add Group</p>
             </div>
          </div>
-         
-      </div>
+         <TopContainer />
+         <Modal
+            open={open}
+            onClose={() => setOpen(false)}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+         >
+            <Box sx={style}>
+               <p>Add Group</p>
+               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '10px' }}>
+                  <TextField label="Name" onChange={(e) => { setGrpName(e.target.value) }} />
+                  <TextField label="Budget" onChange={(e) => { setGrpBudget(e.target.value) }} />
+                  <TextField label="Type" onChange={(e) => { setGrpType(e.target.value) }} />
+                  <FormControl style={{ width: '100%' }}>
+                     <InputLabel>Members</InputLabel>
+                     <Select
+                        labelId="demo-multiple-name-label"
+                        id="demo-multiple-name"
+
+                        multiple
+                        value={personName}
+                        onChange={handleChange}
+                        input={<OutlinedInput placeholder='Members' />}
+                        style={{ width: '100%' }}
+                     >
+                        {users?.map((user) => (
+                           <MenuItem
+                              key={user.id}
+                              value={user.username}
+
+                           >
+                              {user.username}
+                           </MenuItem>
+                        ))}
+                     </Select>
+                  </FormControl>
+               </div>
+               <div style={{ textAlign: 'center', backgroundColor: '#674fa3', borderRadius: '0.5vw', padding: '2px', marginTop: '10px', cursor: 'pointer' }} onClick={createGroup}>
+                  <p style={{ color: 'white' }}>Create Group</p>
+               </div>
+            </Box>
+
+         </Modal>
+
+
+      </div >
    )
 }
 
