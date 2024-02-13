@@ -17,5 +17,25 @@
       }
       
       
-   ]
+   ],
+   "user" : {
+      "all": [
+         {
+            "id":1,
+            "username" : "mihir",
+            "password" : "mihir"
+         },
+         {
+            "id":2,
+            "username" : "mihir2",
+            "password" : "mihir2"
+         },
+         {
+            "id":3,
+            "username" : "mihir3",
+            "password" : "mihir3"
+         }
+      
+      ]
+   }
 }

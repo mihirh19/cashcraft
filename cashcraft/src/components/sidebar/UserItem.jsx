@@ -7,7 +7,7 @@ const UserItem = ({ name, icon, lastName }) => {
       <div className={styles.UserItem_main}>
          {icon}
          <div>
-            <p className={styles.sidebaritem_text}>
+            <p className={styles.sidebaritem_text} style={{ color: "white" }}>
                {name}
                <br />
                {lastName}

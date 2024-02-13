@@ -3,6 +3,7 @@
 import styles from './styles/Dashboard.module.scss'
 import SideBar from '../containers/SideBar';
 import { useNavigate } from "react-router-dom"
+import MainDashboard from '../containers/MainDashboard';
 const Dashboard = () => {
 
    const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Dashboard = () => {
       <>
          <div className={styles.dashboard_main}>
             <SideBar />
+            <MainDashboard />
          </div>
       </>
    )

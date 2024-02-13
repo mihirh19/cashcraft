@@ -27,9 +27,23 @@
 
 .sidebaritem_text {
    font-size: 1vw;
-   color: white;
 }
 
 .white {
    color: white;
+}
+
+.SideBarItem_main {
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   gap: 1vw;
+   background-color: #ebddff;
+   border-radius: 1vw;
+   min-width: 17vw;
+   max-width: 80%;
+   padding-left: 1vw;
+   /* padding-top: 1vh;
+   padding-bottom: 1vh; */
 }
