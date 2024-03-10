@@ -2,16 +2,20 @@ package org.example.cashcraftbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class CashcraftBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CashcraftBackendApplication.class, args);
+    }
+
+    @Bean
+public PasswordEncoder passwordEncoder(){return new BCryptPasswordEncoder(11);
     }
 
 }

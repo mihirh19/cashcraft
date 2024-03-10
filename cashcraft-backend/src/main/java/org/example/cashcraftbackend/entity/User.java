@@ -1,65 +1,76 @@
 package org.example.cashcraftbackend.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+
 
 @Entity
-@Table(name = "user")
-public class User {
+@Data
+@Table(name="user")
+public class User implements UserDetails{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public User() {
+    @ManyToMany(cascade = CascadeType.MERGE,mappedBy = "groupUsers")
+    @JsonIgnore
+    private List<Group> userGroups;
+
+    private String userFirstName;
+    private String userLastName;
+    private String userName;
+
+    //    @Column(length = 60)
+    private String userPassword;
+
+    private Boolean enabled = false;
+    private String role;
+
+    @ManyToMany(cascade = CascadeType.MERGE, mappedBy = "usrSplitBtw")
+    private List<Expense> expenses;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-
-    public User(long userId, String username, String password) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-    }
-
-    @Id
-    @GeneratedValue
-    private long userId;
-
-    private String username;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
-        return password;
+        return userPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public String getUsername() {
+        return userName;
     }
 
-    private String password;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
