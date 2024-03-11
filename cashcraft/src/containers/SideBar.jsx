@@ -1,6 +1,6 @@
 import React from 'react';
 import "./index.css";
-import MainLogo from '../components/sidebar/MainLogo';
+import MainLogo from '../components/MainLogo';
 import UserItem from '../components/sidebar/UserItem';
 import SideBarItems from '../components/sidebar/SideBarItems';
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
