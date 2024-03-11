@@ -1,43 +1,48 @@
-import { MdPeopleOutline } from "react-icons/md";
-import Mainlogo from "../components/sidebar/Mainlogo"
-import UserItem from "../components/sidebar/UserItem";
-import styles from "./styles/Sidebar.module.scss";
-import groups from "../data/groups.json"
-// import { useHistory } from "react-router-dom";
-import { MdPersonOutline } from "react-icons/md";
-import SideBarItems from "../components/sidebar/SideBarItems";
-import { HiOutlineLogout } from "react-icons/hi";
-const SideBar = () => {
-   // const user = JSON.parse(localStorage.getItem('user-info'));
-   // const groups = JSON.parse(localStorage.getItem('groups'));
-   // const history = useHistory();
+import React from 'react';
+import "./index.css";
+import MainLogo from '../components/sidebar/MainLogo';
+import UserItem from '../components/sidebar/UserItem';
+import SideBarItems from '../components/sidebar/SideBarItems';
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import { useNavigate } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout';
 
-   // function logout() {
-   //    localStorage.clear();
-   //    history.push('/login');
-   // }
+function SideBar() {
+    const user = JSON.parse(localStorage.getItem('user-info'));
+    const groups = JSON.parse(localStorage.getItem('groups'));
+    const history = useNavigate();
 
-   return (
-      <div className={styles.sidebar_main}>
-         <Mainlogo />
-         <div className={styles.sidebar_item}>
-            {/* <UserItem name={user.userFirstName} lastName={user.userLastName} icon={<MdPersonOutline fontSize={"30px"} />} /> */}
-            <UserItem name={"Mihir"} lastName={"Hadavani"} icon={<MdPersonOutline fontSize={"30px"} color="white" />} />
-            <div className={styles.sidebar_items}>
-               <p className={styles.sidebar_grp}>Groups</p>
-               <div className={styles.groupss}>
-                  {groups.map((group) => (
-                     <SideBarItems key={group.id} name={group.name} icon={<MdPeopleOutline />} />
-                  ))}
-               </div>
+    function logout() {
+        localStorage.clear();
+        history('/login');
+    }
+
+    return (
+        <div className='sidebar-main'>
+            <MainLogo />
+            <div className='sidebar-item'>
+                <UserItem name={`${user.userFirstName}`} lastName={user.userLastName} icon={<PersonOutlineIcon style={{ color: 'white', fontSize: "30px" }} />} />
+                <div className='sidebar-items'>
+                    <p className='sidebar-grp' >Groups</p>
+                    <div className='groupss'>
+                        {groups?.map(post => {
+                            return (
+
+                                <SideBarItems name={post.groupName} id={post.id} key={post.id} icon={<PeopleOutlineIcon />} />
+
+                            )
+                        })}
+                    </div>
+                </div>
+
             </div>
-         </div>
-         <div className={styles.logout}>
-            <HiOutlineLogout fontSize={"19px"} />
-            <p>Logout</p>
-         </div>
-      </div>
-   )
+            <div className='logout' onClick={logout}>
+                <LogoutIcon style={{ fontSize: '19px' }} />
+                <p>Logout</p>
+            </div>
+        </div>
+    );
 }
 
-export default SideBar
+export default SideBar;

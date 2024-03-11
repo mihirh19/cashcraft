@@ -1,12 +1,12 @@
-/* eslint-disable react/prop-types */
-import styles from "./Sidebar.module.scss";
-const SideBarItems = ({ name, icon }) => {
-   return (
-      <div className={styles.SideBarItem_main}>
-         {icon}
-         <p className={styles.sidebaritem_text}>{name}</p>
-      </div>
-   )
-}
+import React from 'react'
+import "./index.css"
 
-export default SideBarItems
+export default function SideBarItems({name,icon}) {
+  return (
+    <div className='SideBarItem-main'>
+        {icon}
+        <p className='sidebaritem-text'>{name}</p>
+     
+    </div>
+  )
+}

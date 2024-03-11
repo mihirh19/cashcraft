@@ -1,24 +1,21 @@
-
-
-import styles from './styles/Dashboard.module.scss'
+import React from 'react';
+import './index.css'
 import SideBar from '../containers/SideBar';
-import { useNavigate } from "react-router-dom"
 import MainDashboard from '../containers/MainDashboard';
-const Dashboard = () => {
+import { useNavigate } from 'react-router-dom'
 
-   const navigate = useNavigate();
-   if (!localStorage.getItem("user-info")) {
-      navigate("/login");
-   }
-
-   return (
-      <>
-         <div className={styles.dashboard_main}>
+function Dashboard() {
+    const history = useNavigate();
+    if (!localStorage.getItem('user-info')) {
+        history('/login')
+        window.location.reload();
+    }
+    return (
+        <div className='dashboard-main'>
             <SideBar />
             <MainDashboard />
-         </div>
-      </>
-   )
+        </div>
+    );
 }
 
 export default Dashboard;

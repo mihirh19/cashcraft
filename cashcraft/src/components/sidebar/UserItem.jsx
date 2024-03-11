@@ -1,20 +1,15 @@
-/* eslint-disable react/prop-types */
-import styles from "./Sidebar.module.scss";
+import React from 'react'
+import "./index.css"
 
 
-const UserItem = ({ name, icon, lastName }) => {
-   return (
-      <div className={styles.UserItem_main}>
-         {icon}
-         <div>
-            <p className={styles.sidebaritem_text} style={{ color: "white" }}>
-               {name}
-               <br />
-               {lastName}
-            </p>
-         </div>
-      </div >
-   )
+
+export default function UserItem({ name, icon, lastName }) {
+  return (
+    <div className='UserItem-main'>
+      {icon}
+      <div>
+        <p className="white sidebaritem-text">{name}<br />{lastName}</p>
+      </div>
+    </div>
+  )
 }
-
-export default UserItem
