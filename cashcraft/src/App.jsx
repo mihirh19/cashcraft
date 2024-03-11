@@ -1,34 +1,20 @@
-
-import { Fragment } from 'react'
-// import styles from "./App.module.scss"
-import Navbar from './components/Navbar'
-import { Routes, Route } from 'react-router-dom'
+import './App.css';
 import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
-import { useEffect } from 'react'
-import WebFont from 'webfontloader';
-
-
+import Login from './pages/Login';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Signup from './pages/Signup';
 
 function App() {
-
-  useEffect(() => {
-    WebFont.load({
-      google: {
-        families: ['JetBrains Mono']
-      }
-    })
-  }, []);
-
   return (
-    <Fragment>
-      <Navbar />
+    <Router>
       <Routes>
-        <Route exact path="/dashboard" Component={Dashboard} />
-        <Route exact path="/login" Component={Login} />
+        <Route path="/dashboard" Component={Dashboard} />
+        <Route path="/login" Component={Login} />
+        <Route path="/register" Component={Signup} />
+        <Route path="/" Component={Login} />
       </Routes>
-    </Fragment>
-
-  )
+    </Router>
+  );
 }
-export default App
+
+export default App;
