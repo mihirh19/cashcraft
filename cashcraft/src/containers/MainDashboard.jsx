@@ -9,35 +9,66 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setAllUser } from '../slices/allUserSlice';
+import { setCurrUser } from '../slices/currUserSlice';
+import { setGroups, addGroup } from '../slices/groupSlice';
+import { jwtDecode } from 'jwt-decode';
 export default function MainDashboard() {
-  const [users, setUsers] = useState(null);
+  // const [users, setUsers] = useState(null);
+  const users = useSelector(state => state.allUser)
+  const currUser = useSelector(state => state.currUser)
+  const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt")
+
   useEffect(() => {
     async function fetchData() {
-
-      if (users === null) {
-        let paidby = await fetch(`http://localhost:8080/user/all`, {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "Authorization": "Bearer " + jwt,
-
-          },
-        });
-        console.log(paidby);
-        paidby = await paidby.json();
-        localStorage.setItem('all-users', JSON.stringify(paidby));
-        setUsers(paidby);
-        console.log(paidby);
+      let currUser
+      if (jwt !== null) {
+        currUser = jwtDecode(jwt);
+        dispatch(setCurrUser(currUser.user));
       }
+      if (users === null) {
+
+        try {
+          let paidby = await fetch(`http://localhost:8080/user/all`, {
+            method: 'GET',
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Authorization": "Bearer " + jwt,
+
+            },
+          });
+          paidby = await paidby.json();
+          // console.log(paidby);
+          dispatch(setAllUser(paidby))
+          localStorage.setItem('all-users', JSON.stringify(paidby));
+
+          // setUsers(paidby);
+        } catch (e) {
+          console.log(e.message);
+        }
+
+      }
+      let groups = await fetch(`http://localhost:8080/user/groups/${currUser.user.id}`, {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem('jwt') || ""
+        },
+      });
+      groups = await groups.json();
+      localStorage.setItem('groups', JSON.stringify(groups));
+      dispatch(setGroups(groups));
     }
     fetchData();
-  }, [users, jwt]);
+  }, []);
+
 
   const [personName, setPersonName] = useState([]);
-  const currUser = JSON.parse(localStorage.getItem('user-info'))
+  // const currUser = JSON.parse(localStorage.getItem('user-info')) 
   const handleChange = (event) => {
 
     setPersonName(
@@ -75,7 +106,6 @@ export default function MainDashboard() {
       "grpBudget": grpBudget,
       "grpUser": grpUser
     }
-    console.log(item)
 
     try {
       let result = await fetch('http://localhost:8080/groups/create', {
@@ -90,6 +120,7 @@ export default function MainDashboard() {
       result = await result.json();
       if (result != null || !result.error) {
         localStorage.setItem('groups', JSON.stringify(result));
+        dispatch(addGroup(result));
         setOpen(false);
 
       }
@@ -112,8 +143,9 @@ export default function MainDashboard() {
     });
     totalgroups = await totalgroups.json();
     localStorage.setItem('groups', JSON.stringify(totalgroups));
+    dispatch(setGroups(totalgroups));
 
-    window.location.reload();
+    // window.location.reload();
   }
   return (
     <div className='maindashboard-main'>

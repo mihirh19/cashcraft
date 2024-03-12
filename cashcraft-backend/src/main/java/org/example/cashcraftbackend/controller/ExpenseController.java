@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.example.cashcraftbackend.service.ExpenseService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/expense")
@@ -25,8 +27,9 @@ public class ExpenseController {
     public List<Expense> getGrpExpenses(@PathVariable("id") Long groupId){
         return expenseService.getGrpExpenses(groupId);
     }
-    @GetMapping("/resolve/{id}")
-    public String resolveExpense(@PathVariable("id") Long expId){
+    @DeleteMapping("/resolve/{id}")
+    public HashMap<String, String> resolveExpense(@PathVariable("id") Long expId){
         return expenseService.resolveExpense(expId);
     }
+
 }

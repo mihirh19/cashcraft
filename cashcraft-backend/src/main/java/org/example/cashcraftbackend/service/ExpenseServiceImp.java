@@ -1,12 +1,15 @@
 package org.example.cashcraftbackend.service;
 
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import org.example.cashcraftbackend.entity.Expense;
 import org.example.cashcraftbackend.model.ExpenseModel;
 import org.example.cashcraftbackend.repository.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ExpenseServiceImp implements ExpenseService {
@@ -32,8 +35,11 @@ public class ExpenseServiceImp implements ExpenseService {
     }
 
     @Override
-    public String resolveExpense(Long expId) {
+    public HashMap<String, String > resolveExpense(Long expId) {
         expenseRepository.deleteById(expId);
-        return "expense resolved";
+        HashMap<String, String >map = new HashMap<>();
+        map.put("message", "expense resolved");
+        return map;
+
     }
 }

@@ -6,7 +6,8 @@ import split from './split.gif'
 import ClipLoader from "react-spinners/CircleLoader";
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode';
-
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrUser } from '../slices/currUserSlice';
 export default function Login() {
 
 
@@ -15,10 +16,12 @@ export default function Login() {
   const [loading, setLoading] = useState();
   const [showPassword, setShow] = useState(false)
   const history = useNavigate();
-  if (localStorage.getItem('user-info')) {
-    history('/dashboard')
-    // window.location.reload();
-  }
+  const currUser = useSelector(state => state.currUser);
+  const dispatch = useDispatch();
+  // if (localStorage.getItem('user-info')) {
+  //   history('/dashboard')
+  //   // window.location.reload();
+  // }
   useEffect(() => {
     if (localStorage.getItem('user-info')) {
       history("/dashboard")
@@ -33,7 +36,6 @@ export default function Login() {
 
     //credentials
     setLoading(true);
-    let user;
     try {
       let result = await fetch('http://localhost:8080/user/login', {
         method: 'POST',
@@ -48,19 +50,9 @@ export default function Login() {
         let res = jwtDecode(result.jwtToken);
         localStorage.setItem('jwt', result.jwtToken);
         localStorage.setItem('user-info', JSON.stringify(res.user));
-        user = JSON.parse(localStorage.getItem('user-info'));
-        let groups = await fetch(`http://localhost:8080/user/groups/${user.id}`, {
-          method: 'GET',
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-          },
-        });
-        groups = await groups.json();
-        console.log(groups);
-        localStorage.setItem('groups', JSON.stringify(groups));
+        dispatch(setCurrUser(res.user));
         setLoading(false);
-        history.push("/dashboard");
+        history("/dashboard");
       }
       else {
         setLoading(false);
@@ -108,7 +100,7 @@ export default function Login() {
               <div style={{ textAlign: 'center', backgroundColor: '#674fa3', borderRadius: '0.5vw', cursor: 'pointer' }} onClick={login} >
                 <p style={{ color: 'white' }}>Login</p>
               </div>
-              <p>Don't have an account?<span onClick={() => { history.push("/register") }} style={{ cursor: 'pointer' }} >Sign up</span></p>
+              <p>Don't have an account?<span onClick={() => { history("/register") }} style={{ cursor: 'pointer' }} >Sign up</span></p>
               {/* <button className='login-button' placeholder='Login' /> */}
             </div>
           </div>

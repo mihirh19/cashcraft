@@ -2,18 +2,31 @@ import React from 'react'
 import "./index.css"
 import FilledBox from './FilledBox'
 import OutlineBox from './OutlineBox'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-export default function Events({name,key,paidBy,amt}) {
+import DeleteIcon from '@mui/icons-material/Delete';
+export default function Events({ name, paidBy, amt, id }) {
   return (
     <div className='event-main'>
-        <div className='event-content'>
+      <div className='event-content'>
         <p className='event-head'>{name}</p>
         <div className='event-icons'>
-            <FilledBox text={`₹${amt}`}/>
-            <OutlineBox id={paidBy}/>
+          <FilledBox text={`₹${amt}`} />
+          <OutlineBox id={paidBy} />
         </div>
-        </div>
-        <ArrowForwardIosIcon/>
+      </div>
+      <div onClick={async () => {
+        await fetch(`http://localhost:8080/expense/resolve/${id}`, {
+          method: 'DELETE',
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem('jwt') || ""
+          }
+        })
+        window.location.reload();
+      }} style={{ cursor: "pointer" }}>
+        <DeleteIcon />
+      </div>
+
     </div>
   )
 }

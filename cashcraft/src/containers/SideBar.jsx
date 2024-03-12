@@ -7,10 +7,19 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom'
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
+import { setCurrUser } from '../slices/currUserSlice';
 function SideBar() {
+    const dispatch = useDispatch();
+    // const user = useSelector(state => state.currUser);
+
     const user = JSON.parse(localStorage.getItem('user-info'));
-    const groups = JSON.parse(localStorage.getItem('groups'));
+    const groups = useSelector(state => state.groups);
+
+    // const groups = JSON.parse(localStorage.getItem('groups'));
     const history = useNavigate();
 
     function logout() {

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 import Events from './Events'
 import "./index.css"
@@ -13,9 +14,12 @@ import BalanceIcon from '@mui/icons-material/Balance';
 import Final from './Final';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
-
-
+import { Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setExpenses } from '../../slices/expensesSlice';
 export default function Organizations({ name, id, fun }) {
+  // const dispatch = useDispatch();
+  // const expenses = useSelector(state => state.expenses);
   const [expenses, setExpenses] = useState();
   // const history = useHistory();
   const [open, setOpen] = useState(false);
@@ -47,6 +51,7 @@ export default function Organizations({ name, id, fun }) {
       });
       expenses = await expenses.json();
       setExpenses(expenses);
+      // dispatch(setExpenses(expenses));
       for (var i = 0; i < expenses.length; i++) {
         setTotalExpense(totalExpense + expenses[i].expAmt);
       }
@@ -151,6 +156,8 @@ export default function Organizations({ name, id, fun }) {
       result = await result.json();
       if (result != null || !result.error) {
         setOpen(false);
+        setExpenses([...expenses, result]);
+        // console.log(result);
       }
       else {
         return;
@@ -159,7 +166,7 @@ export default function Organizations({ name, id, fun }) {
     catch (e) {
       console.log(e);
     }
-    window.location.reload();
+    // window.location.reload();
 
   }
 
@@ -178,12 +185,12 @@ export default function Organizations({ name, id, fun }) {
             </div>
 
             {
-              finalSplit?.map(post => {
+              finalSplit?.map((post, index) => {
 
                 return (
-                  <>
+                  <Fragment key={index}>
                     <Final payto={post.finalPayTo} payby={post.finalPayBy} amt={post.finalAmt} />
-                  </>
+                  </Fragment>
                 )
               }
               )
@@ -260,10 +267,10 @@ export default function Organizations({ name, id, fun }) {
             expenses?.map(post => {
 
               return (
-                <>
-                  <Events name={post.expName} key={post.id} paidBy={post.expPaidBy} amt={post.expAmt} />
+                <Fragment key={post.id}>
+                  <Events name={post.expName} key={post.id} paidBy={post.expPaidBy} amt={post.expAmt} id={post.id} />
 
-                </>
+                </Fragment>
               )
             }
             )

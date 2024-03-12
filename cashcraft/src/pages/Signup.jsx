@@ -4,7 +4,7 @@ import './index.css'
 import split from './split.gif'
 import ClipLoader from "react-spinners/CircleLoader";
 import { useNavigate } from 'react-router-dom'
-
+import { jwtDecode } from 'jwt-decode';
 
 export default function Signup() {
   const [email, setEmail] = useState();
@@ -40,7 +40,6 @@ export default function Signup() {
       "userPassword": password,
       "userMatchingPassword": password
     }
-    let user;
     try {
       let result = await fetch('http://localhost:8080/user/register', {
         method: 'POST',
@@ -51,8 +50,9 @@ export default function Signup() {
       });
       result = await result.json();
       if (result != null) {
-        localStorage.setItem('user-info', JSON.stringify(result));
-        user = JSON.parse(localStorage.getItem('user-info'));
+        let res = jwtDecode(result.jwtToken);
+        localStorage.setItem('jwt', result.jwtToken);
+        localStorage.setItem('user-info', JSON.stringify(res.user));
 
       }
       else {
@@ -115,7 +115,7 @@ export default function Signup() {
               </div>
               {/* <button className='login-button' placeholder='Login' /> */}
             </div>
-            <p>Have an account?<span onClick={() => { history.push("/login") }} style={{ cursor: 'pointer' }} > Sign in </span></p>
+            <p>Have an account?<span onClick={() => { history("/login") }} style={{ cursor: 'pointer' }} > Sign in </span></p>
 
           </div>
         </div>
