@@ -20,7 +20,6 @@ public class ExpenseController {
 
     @PostMapping("/create")
     public Expense createExpense(@RequestBody ExpenseModel expenseModel){
-
         return expenseService.createExpense(expenseModel);
     }
     @GetMapping("/group/{id}")

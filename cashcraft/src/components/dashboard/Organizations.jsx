@@ -16,9 +16,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setExpenses } from '../../slices/expensesSlice';
+import { deleteGroup } from '../../slices/groupSlice';
+
 export default function Organizations({ name, id, fun }) {
-  // const dispatch = useDispatch();
+
   // const expenses = useSelector(state => state.expenses);
   const [expenses, setExpenses] = useState();
   // const history = useHistory();
@@ -170,6 +171,33 @@ export default function Organizations({ name, id, fun }) {
 
   }
 
+  async function deleteGroup(id) {
+    console.log(id);
+    try {
+      let result = await fetch(`http://localhost:8080/groups/${id}`, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": "Bearer " + token,
+        },
+      });
+      result = await result.json();
+      if (result != null || !result.error) {
+        console.log(id);
+        // dispatch(deleteGroup(id));
+        window.location.reload();
+
+      }
+      else {
+        return;
+      }
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <>
       {split ?
@@ -180,7 +208,7 @@ export default function Organizations({ name, id, fun }) {
               <div className='org-icons'>
                 <div onClick={() => { gameOn() }} style={{ cursor: 'pointer' }}><BalanceIcon style={{ fontSize: "20px" }} /></div>
                 <div onClick={() => { openBox(id) }} style={{ cursor: 'pointer' }}  ><AddIcon style={{ fontSize: "20px" }} /></div>
-                {/* <div onClick={()=>{deleteGroup(id)}}  style={{cursor:'pointer'}}><DeleteOutlineIcon style={{fontSize:"20px"}} /></div> */}
+                <div onClick={() => { deleteGroup(id) }} style={{ cursor: 'pointer' }}><DeleteOutlineIcon style={{ fontSize: "20px" }} /></div>
               </div>
             </div>
 
@@ -259,6 +287,7 @@ export default function Organizations({ name, id, fun }) {
             <div className='org-icons'>
               <div onClick={() => { gameOn() }} style={{ cursor: 'pointer' }}><BalanceIcon style={{ fontSize: "20px" }} /></div>
               <div onClick={() => { openBox(id) }} style={{ cursor: 'pointer' }}  ><AddIcon style={{ fontSize: "20px" }} /></div>
+              <div onClick={() => { deleteGroup(id) }} style={{ cursor: 'pointer' }}><DeleteOutlineIcon style={{ fontSize: "20px" }} /></div>
               <div><p>₹{totalExpense}</p></div>
               {/* <div onClick={()=>{deleteGroup(id)}}  style={{cursor:'pointer'}}><DeleteOutlineIcon style={{fontSize:"20px"}} /></div> */}
             </div>

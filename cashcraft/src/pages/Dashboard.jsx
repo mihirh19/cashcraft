@@ -24,7 +24,7 @@ function Dashboard() {
         let currUser = jwtDecode(jwt);
         dispatch(setCurrUser(currUser.user));
 
-    }, [])
+    }, [dispatch, history])
 
     return (
         <div className='dashboard-main'>

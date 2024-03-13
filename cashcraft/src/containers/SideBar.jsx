@@ -1,4 +1,4 @@
-import React from 'react';
+
 import "./index.css";
 import MainLogo from '../components/sidebar/MainLogo';
 import UserItem from '../components/sidebar/UserItem';
@@ -8,15 +8,14 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
-
-import { setCurrUser } from '../slices/currUserSlice';
+import { deleteCurrUser } from '../slices/currUserSlice';
+import { deleteGroups } from '../slices/groupSlice';
+import { deleteAllUser } from '../slices/allUserSlice';
 function SideBar() {
     const dispatch = useDispatch();
-    // const user = useSelector(state => state.currUser);
+    const user = useSelector(state => state.currUser);
 
-    const user = JSON.parse(localStorage.getItem('user-info'));
+    // const user = JSON.parse(localStorage.getItem('user-info'));
     const groups = useSelector(state => state.groups);
 
     // const groups = JSON.parse(localStorage.getItem('groups'));
@@ -24,6 +23,9 @@ function SideBar() {
 
     function logout() {
         localStorage.clear();
+        dispatch(deleteCurrUser());
+        dispatch(deleteGroups())
+        dispatch(deleteAllUser())
         history('/login');
     }
 

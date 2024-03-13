@@ -28,7 +28,7 @@ export default function MainDashboard() {
         currUser = jwtDecode(jwt);
         dispatch(setCurrUser(currUser.user));
       }
-      if (users === null) {
+      if (users.length === 0) {
 
         try {
           let paidby = await fetch(`http://localhost:8080/user/all`, {
@@ -99,7 +99,6 @@ export default function MainDashboard() {
     for (var i = 0; i < personName.length; i++) {
       grpUser.push({ "id": personName[i] })
     }
-    console.log(grpUser)
     let item = {
       "grpName": grpName,
       "grpType": grpType,
@@ -116,7 +115,6 @@ export default function MainDashboard() {
         },
         body: JSON.stringify(item)
       });
-      console.log(result);
       result = await result.json();
       if (result != null || !result.error) {
         localStorage.setItem('groups', JSON.stringify(result));

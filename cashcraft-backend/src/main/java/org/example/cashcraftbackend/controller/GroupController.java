@@ -8,6 +8,8 @@ import org.example.cashcraftbackend.model.GroupModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.example.cashcraftbackend.service.GroupService;
+
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -51,7 +53,7 @@ public class GroupController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteGroup(@PathVariable("id") Long groupId){
+    public HashMap<String,String> deleteGroup(@PathVariable("id") Long groupId){
         return groupService.deleteGroup(groupId);
     }
 }

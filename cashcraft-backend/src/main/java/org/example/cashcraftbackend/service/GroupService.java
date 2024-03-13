@@ -7,6 +7,7 @@ import org.example.cashcraftbackend.entity.Group;
 import org.example.cashcraftbackend.entity.User;
 import org.example.cashcraftbackend.model.GroupModel;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface GroupService {
@@ -22,5 +23,5 @@ public interface GroupService {
 
     List<FinalSplit> getGroupFinal(Long groupId);
 
-    String deleteGroup(Long groupId);
+    HashMap<String, String> deleteGroup(Long groupId);
 }

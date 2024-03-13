@@ -62,6 +62,8 @@ export default function Signup() {
     }
     catch (e) {
       console.log(e);
+      setLoading(false);
+      return;
     }
 
     // let groups= await fetch(`https://splitwise-apiv1.herokuapp.com/user/groups/${user.id}`,{
@@ -73,7 +75,7 @@ export default function Signup() {
     //   groups = await groups.json();
     //   localStorage.setItem('groups',JSON.stringify(groups));
     //   setLoading(false);
-    history.push("/dashboard");
+    history("/dashboard");
 
 
 

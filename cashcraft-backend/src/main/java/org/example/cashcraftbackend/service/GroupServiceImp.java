@@ -10,6 +10,7 @@ import org.example.cashcraftbackend.repository.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,8 +63,10 @@ public class GroupServiceImp implements GroupService {
     }
 
     @Override
-    public String deleteGroup(Long groupId) {
+    public HashMap<String, String> deleteGroup(Long groupId) {
         groupRepository.deleteById(groupId);
-        return "Group Deleted";
+        HashMap<String, String> map =  new HashMap<>();
+        map.put("message", "group deleted");
+        return map;
     }
 }
