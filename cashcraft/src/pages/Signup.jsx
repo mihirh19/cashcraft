@@ -98,7 +98,7 @@ export default function Signup() {
             <img src={split} alt="loading..." style={{ height: '100%', width: '50%', position: 'absolute' }} />
           </div>
           <div className='login-s'>
-            <p className='login-head'>Trip<span style={{ color: '#674fa3' }}>Split</span></p>
+            <p className='login-head'>Cash<span style={{ color: '#674fa3' }}>Craft</span></p>
             <div className='login-box'>
               <TextField label="First Name" onChange={(e) => { setFirstName(e.target.value) }} />
 

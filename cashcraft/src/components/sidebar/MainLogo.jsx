@@ -5,7 +5,7 @@ function MainLogo() {
    return (
       <div className='MainLogo-main'>
          <BalanceIcon style={{ fontSize: "23px" }} />
-         <p className='logo-text'>TripSplit</p>
+         <p className='logo-text'>CashCraft</p>
       </div>
    );
 }
