@@ -1,6 +1,6 @@
-## CashCraft
 
-<img alt="React" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/><img alt="Spring" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/>
+![cashcraft](https://socialify.git.ci/mihirh19/cashcraft/image?font=KoHo&forks=1&issues=1&logo=https%3A%2F%2Fi.ytimg.com%2Fvi%2FKqZ4aq9xihQ%2Fmaxresdefault.jpg&name=1&owner=1&pulls=1&stargazers=1&theme=Light)
+
 
 ## Full stack application to split bills among friends
 
